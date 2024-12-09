@@ -18,10 +18,25 @@ const injectContext = (PassedComponent) => {
     );
 
     useEffect(() => {
+      // Cargar personajes
       if (state.actions.loadCharacters) {
         state.actions.loadCharacters();
       } else {
         console.error("loadCharacters action is not defined");
+      }
+
+      // Cargar planetas
+      if (state.actions.loadPlanets) {
+        state.actions.loadPlanets();
+      } else {
+        console.error("loadPlanets action is not defined");
+      }
+
+      // Cargar vehículos
+      if (state.actions.loadVehicles) {
+        state.actions.loadVehicles();
+      } else {
+        console.error("loadVehicles action is not defined");
       }
     }, []);
 

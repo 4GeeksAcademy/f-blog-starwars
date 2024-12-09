@@ -13,7 +13,7 @@ export const Navbar = () => {
           <img
             src={Logo} // Ruta de la imagen que subiste
             alt="Star Wars Logo"
-            style={{ width: "70px", height: "auto" }} // Ajuste de tamaño
+            style={{ width: "50px", height: "auto" }} // Ajuste de tamaño
           />
         </Link>
         <button
@@ -34,6 +34,17 @@ export const Navbar = () => {
                 Persons
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/planets">
+                Planets
+              </Link>
+            </li>
+            {/* Opción de Vehicles añadida */}
+            <li className="nav-item">
+              <Link className="nav-link" to="/vehicles">
+                Vehicles
+              </Link>
+            </li>
           </ul>
           <ul
             className="navbar-nav ms-auto"
@@ -41,18 +52,22 @@ export const Navbar = () => {
           >
             <li className="nav-item dropdown">
               <button
-                className="btn btn-secondary dropdown-toggle"
+                className="btn btn-primary dropdown-toggle"
                 type="button"
                 id="navbarDropdown"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Favorites
+                {/* Mostrar el número de elementos en el dropdown */}
+                <span className="badge bg-danger ms-2">
+                  {store.readLater.length}
+                </span>
               </button>
               <ul
                 className="dropdown-menu"
                 aria-labelledby="navbarDropdown"
-                style={{ width: "150px" }} // Ajuste del ancho
+                style={{ width: "200px" }}
               >
                 {store.readLater.length > 0 ? (
                   store.readLater.map((character) => (
@@ -65,11 +80,10 @@ export const Navbar = () => {
                       </button>
                       <button
                         className="btn btn-danger btn-sm me-2"
-                        onClick={() => actions.toggleReadLater(character)} // Elimina al personaje de los favoritos
+                        onClick={() => actions.toggleReadLater(character)}
                         title="Remove from Favorites"
                       >
-                        <i className="fa fa-trash fa-xs"></i>{" "}
-                        {/* Ícono de basurero pequeño */}
+                        <i className="bi bi-trash3"></i>{" "}
                       </button>
                     </li>
                   ))

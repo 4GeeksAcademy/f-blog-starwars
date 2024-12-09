@@ -1,14 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Single = () => {
   const { store } = useContext(Context);
-  const { theid } = useParams(); // Obtiene el parámetro de la URL
+  const { uid } = useParams();
   const [planet, setPlanet] = useState(null);
 
-  // Convierte 'theid' a número y encuentra el personaje en el índice correspondiente
-  const character = store.characters[parseInt(theid, 10)];
+  const character = store.characters.find((character) => character.uid === uid);
 
   useEffect(() => {
     const fetchPlanet = async () => {
@@ -16,7 +15,7 @@ export const Single = () => {
         try {
           const planetResponse = await fetch(character.homeworld);
           const planetData = await planetResponse.json();
-          setPlanet(planetData.result.properties.name); // Establece el nombre del planeta
+          setPlanet(planetData.result.properties.name);
         } catch (error) {
           console.error("Error fetching homeworld:", error);
         }
@@ -30,7 +29,7 @@ export const Single = () => {
     return <div>Character not found</div>;
   }
 
-  // Descripción personalizada del personaje (puedes personalizarla más)
+  // Descripción personalizada del personaje
   const characterDescription = `${character.name} es un ${character.gender} que nació en el año ${character.birth_year}. Es conocido por su ${character.eye_color} y su altura de ${character.height} cm.`;
 
   return (

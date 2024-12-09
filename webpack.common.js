@@ -21,24 +21,32 @@ module.exports = {
         test: /\.(css)$/,
         use: [
           {
-            loader: "style-loader", // creates style nodes from JS strings
+            loader: "style-loader", // Crea nodos de estilo a partir de cadenas JS
           },
           {
-            loader: "css-loader", // translates CSS into CommonJS
+            loader: "css-loader", // Traduce CSS a CommonJS
           },
         ],
-      }, //css only files
+      }, // Archivos CSS
       {
         test: /\.(png|svg|jpg|gif|jpeg|webp)$/,
         use: {
           loader: "file-loader",
           options: { name: "[name].[ext]" },
         },
-      }, //for images
+      }, // Imágenes
       {
-        test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
-        use: ["file-loader"],
-      }, //for fonts
+        test: /\.(woff|woff2|ttf|eot|svg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[hash].[ext]", // Genera un nombre único para evitar problemas de caché
+              outputPath: "fonts/", // Coloca las fuentes en una carpeta "fonts" dentro de "public"
+            },
+          },
+        ],
+      }, // Fuentes
       {
         test: /\.json$/,
         type: "javascript/auto",

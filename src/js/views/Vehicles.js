@@ -2,29 +2,29 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
-export const Persons = () => {
+export const Vehicles = () => {
   const { store, actions } = useContext(Context);
 
   useEffect(() => {
-    actions.loadCharacters();
+    actions.loadVehicles();
   }, [actions]);
 
-  if (!store.characters || store.characters.length === 0) {
-    return <div className="text-center mt-5">Loading characters...</div>;
+  if (!store.vehicles || store.vehicles.length === 0) {
+    return <div className="text-center mt-5">Loading vehicles...</div>;
   }
 
   return (
     <div className="container mt-5">
-      <h1 className="mb-4">Star Wars Characters</h1>
+      <h1 className="mb-4">Star Wars Vehicles</h1>
       <div className="row">
-        {store.characters.map((character) => {
+        {store.vehicles.map((vehicle) => {
           return (
-            <div className="col-6 col-sm-4 col-md-3 mb-3" key={character.uid}>
+            <div className="col-6 col-sm-4 col-md-3 mb-3" key={vehicle.uid}>
               <div className="card">
                 <img
-                  src={`https://starwars-visualguide.com/assets/img/characters/${character.uid}.jpg`}
+                  src={`https://starwars-visualguide.com/assets/img/vehicles/${vehicle.uid}.jpg`}
                   className="card-img-top"
-                  alt={character.name}
+                  alt={vehicle.name}
                   onError={(e) =>
                     (e.target.src =
                       "https://starwars-visualguide.com/assets/img/placeholder.jpg")
@@ -35,21 +35,18 @@ export const Persons = () => {
                   }}
                 />
                 <div className="card-body">
-                  <h6 className="card-title text-truncate">{character.name}</h6>
-                  <p className="card-text mb-2">
-                    <strong>Gender:</strong> {character.gender} <br />
-                    <strong>Birth Year:</strong> {character.birth_year} <br />
-                  </p>
+                  <h6 className="card-title text-truncate">{vehicle.name}</h6>
                   <div className="d-flex justify-content-between">
                     <Link
-                      to={`/single/person/${character.uid}`}
+                      to={`/single/vehicle/${vehicle.uid}`}
                       className="btn btn-outline-primary btn-sm"
                     >
                       Learn More
                     </Link>
+
                     <button
                       className="btn btn-outline-warning btn-sm"
-                      onClick={() => actions.toggleReadLater(character)}
+                      onClick={() => actions.toggleReadLater(vehicle)}
                     >
                       <i className="bi bi-heart"></i>
                     </button>
